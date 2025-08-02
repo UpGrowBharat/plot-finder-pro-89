@@ -14,16 +14,185 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      admin_users: {
+        Row: {
+          created_at: string | null
+          id: string
+          role: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          id: string
+          role?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          id?: string
+          role?: string | null
+        }
+        Relationships: []
+      }
+      profiles: {
+        Row: {
+          created_at: string | null
+          email: string | null
+          full_name: string | null
+          id: string
+          owner_type: Database["public"]["Enums"]["owner_type"] | null
+          phone: string | null
+          updated_at: string | null
+          whatsapp: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          email?: string | null
+          full_name?: string | null
+          id: string
+          owner_type?: Database["public"]["Enums"]["owner_type"] | null
+          phone?: string | null
+          updated_at?: string | null
+          whatsapp?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          email?: string | null
+          full_name?: string | null
+          id?: string
+          owner_type?: Database["public"]["Enums"]["owner_type"] | null
+          phone?: string | null
+          updated_at?: string | null
+          whatsapp?: string | null
+        }
+        Relationships: []
+      }
+      properties: {
+        Row: {
+          address: string
+          area: string
+          city: string
+          created_at: string | null
+          description: string | null
+          features: string[] | null
+          id: string
+          images: string[] | null
+          negotiable: boolean | null
+          pincode: string
+          price: number
+          price_text: string
+          serial_number: string
+          size: string
+          state: string
+          status: Database["public"]["Enums"]["property_status"] | null
+          title: string
+          type: Database["public"]["Enums"]["property_type"]
+          unit: Database["public"]["Enums"]["unit_type"]
+          updated_at: string | null
+          user_id: string
+          views: number | null
+        }
+        Insert: {
+          address: string
+          area: string
+          city: string
+          created_at?: string | null
+          description?: string | null
+          features?: string[] | null
+          id?: string
+          images?: string[] | null
+          negotiable?: boolean | null
+          pincode: string
+          price: number
+          price_text: string
+          serial_number: string
+          size: string
+          state: string
+          status?: Database["public"]["Enums"]["property_status"] | null
+          title: string
+          type: Database["public"]["Enums"]["property_type"]
+          unit: Database["public"]["Enums"]["unit_type"]
+          updated_at?: string | null
+          user_id: string
+          views?: number | null
+        }
+        Update: {
+          address?: string
+          area?: string
+          city?: string
+          created_at?: string | null
+          description?: string | null
+          features?: string[] | null
+          id?: string
+          images?: string[] | null
+          negotiable?: boolean | null
+          pincode?: string
+          price?: number
+          price_text?: string
+          serial_number?: string
+          size?: string
+          state?: string
+          status?: Database["public"]["Enums"]["property_status"] | null
+          title?: string
+          type?: Database["public"]["Enums"]["property_type"]
+          unit?: Database["public"]["Enums"]["unit_type"]
+          updated_at?: string | null
+          user_id?: string
+          views?: number | null
+        }
+        Relationships: []
+      }
+      property_inquiries: {
+        Row: {
+          created_at: string | null
+          id: string
+          inquirer_email: string | null
+          inquirer_name: string
+          inquirer_phone: string
+          message: string | null
+          property_id: string
+        }
+        Insert: {
+          created_at?: string | null
+          id?: string
+          inquirer_email?: string | null
+          inquirer_name: string
+          inquirer_phone: string
+          message?: string | null
+          property_id: string
+        }
+        Update: {
+          created_at?: string | null
+          id?: string
+          inquirer_email?: string | null
+          inquirer_name?: string
+          inquirer_phone?: string
+          message?: string | null
+          property_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "property_inquiries_property_id_fkey"
+            columns: ["property_id"]
+            isOneToOne: false
+            referencedRelation: "properties"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      generate_property_serial: {
+        Args: Record<PropertyKey, never>
+        Returns: string
+      }
     }
     Enums: {
-      [_ in never]: never
+      owner_type: "owner" | "agent" | "dealer"
+      property_status: "pending" | "approved" | "rejected" | "sold"
+      property_type: "residential" | "commercial" | "industrial"
+      unit_type: "gaj" | "sqmeter" | "acre"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -150,6 +319,11 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      owner_type: ["owner", "agent", "dealer"],
+      property_status: ["pending", "approved", "rejected", "sold"],
+      property_type: ["residential", "commercial", "industrial"],
+      unit_type: ["gaj", "sqmeter", "acre"],
+    },
   },
 } as const

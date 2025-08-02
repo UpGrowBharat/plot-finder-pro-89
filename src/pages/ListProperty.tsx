@@ -2,17 +2,23 @@
 import { useState } from 'react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import AuthModal from '@/components/AuthModal';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Upload, MapPin, Home, DollarSign, X } from 'lucide-react';
+import { Upload, MapPin, Home, DollarSign, X, LogIn } from 'lucide-react';
 import { useToast } from '@/components/ui/use-toast';
+import { useAuth } from '@/hooks/useAuth';
+import { supabase } from '@/integrations/supabase/client';
 
 const ListProperty = () => {
   const { toast } = useToast();
+  const { user } = useAuth();
+  const [authModalOpen, setAuthModalOpen] = useState(false);
   const [uploadedFiles, setUploadedFiles] = useState<File[]>([]);
+  const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     title: '',
     type: '',
@@ -26,11 +32,7 @@ const ListProperty = () => {
     price: '',
     negotiable: '',
     description: '',
-    ownerName: '',
-    phone: '',
-    email: '',
-    whatsapp: '',
-    ownerType: ''
+    features: [] as string[]
   });
 
   const handleInputChange = (field: string, value: string) => {
@@ -51,52 +53,106 @@ const ListProperty = () => {
     setUploadedFiles(prev => prev.filter((_, i) => i !== index));
   };
 
+  const uploadImages = async (propertyId: string): Promise<string[]> => {
+    const imageUrls: string[] = [];
+    
+    for (let i = 0; i < uploadedFiles.length; i++) {
+      const file = uploadedFiles[i];
+      const fileName = `${propertyId}/${Date.now()}-${i}-${file.name}`;
+      
+      const { error } = await supabase.storage
+        .from('property-images')
+        .upload(fileName, file);
+      
+      if (error) {
+        console.error('Error uploading file:', error);
+        continue;
+      }
+      
+      const { data } = supabase.storage
+        .from('property-images')
+        .getPublicUrl(fileName);
+      
+      imageUrls.push(data.publicUrl);
+    }
+    
+    return imageUrls;
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
-    // Generate property ID
-    const propertyId = `PROP-${Date.now()}`;
+    if (!user) {
+      setAuthModalOpen(true);
+      return;
+    }
+
+    setLoading(true);
     
-    // Create property data
-    const propertyData = {
-      id: propertyId,
-      serialNumber: `A-${Math.floor(Math.random() * 1000)}`,
-      ...formData,
-      images: uploadedFiles.map(file => URL.createObjectURL(file)),
-      createdAt: new Date().toISOString(),
-      status: 'pending'
-    };
+    try {
+      // Upload images first
+      const imageUrls = await uploadImages(crypto.randomUUID());
+      
+      // Create property data
+      const propertyData = {
+        user_id: user.id,
+        title: formData.title,
+        type: formData.type as 'residential' | 'commercial' | 'industrial',
+        size: formData.size,
+        unit: formData.unit as 'gaj' | 'sqmeter' | 'acre',
+        state: formData.state,
+        city: formData.city,
+        area: formData.area,
+        pincode: formData.pincode,
+        address: formData.address,
+        price: parseFloat(formData.price),
+        price_text: `₹${formData.price}`,
+        negotiable: formData.negotiable === 'yes',
+        description: formData.description,
+        features: ['DTCP Approved', 'Clear Title', 'Ready for Construction'],
+        images: imageUrls,
+        status: 'pending' as const
+      };
 
-    // Store in localStorage for demo (in real app, would save to database)
-    const existingProperties = JSON.parse(localStorage.getItem('properties') || '[]');
-    localStorage.setItem('properties', JSON.stringify([...existingProperties, propertyData]));
+      const { data, error } = await supabase
+        .from('properties')
+        .insert([propertyData])
+        .select()
+        .single();
 
-    toast({
-      title: "Property Listed Successfully!",
-      description: `Your property has been listed with ID: ${propertyId}`,
-    });
+      if (error) throw error;
 
-    // Reset form
-    setFormData({
-      title: '',
-      type: '',
-      size: '',
-      unit: '',
-      state: '',
-      city: '',
-      area: '',
-      pincode: '',
-      address: '',
-      price: '',
-      negotiable: '',
-      description: '',
-      ownerName: '',
-      phone: '',
-      email: '',
-      whatsapp: '',
-      ownerType: ''
-    });
-    setUploadedFiles([]);
+      toast({
+        title: "Property Listed Successfully!",
+        description: `Your property has been submitted for review. ID: ${data.serial_number}`,
+      });
+
+      // Reset form
+      setFormData({
+        title: '',
+        type: '',
+        size: '',
+        unit: '',
+        state: '',
+        city: '',
+        area: '',
+        pincode: '',
+        address: '',
+        price: '',
+        negotiable: '',
+        description: '',
+        features: []
+      });
+      setUploadedFiles([]);
+    } catch (error: any) {
+      toast({
+        title: "Error",
+        description: error.message,
+        variant: "destructive"
+      });
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -114,6 +170,22 @@ const ListProperty = () => {
               </p>
             </div>
           </section>
+
+          {/* User Status */}
+          {!user && (
+            <div className="bg-blue-50 border border-blue-200 rounded-lg p-6 mb-8">
+              <div className="flex items-center justify-between">
+                <div>
+                  <h3 className="text-lg font-semibold text-blue-900">Sign in Required</h3>
+                  <p className="text-blue-700">You need to create an account to list your property.</p>
+                </div>
+                <Button onClick={() => setAuthModalOpen(true)} className="gap-2">
+                  <LogIn className="h-4 w-4" />
+                  Sign In
+                </Button>
+              </div>
+            </div>
+          )}
 
           {/* Listing Form */}
           <section className="pb-16">
@@ -224,6 +296,7 @@ const ListProperty = () => {
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                       <Input 
                         placeholder="Expected Price (₹)" 
+                        type="number"
                         value={formData.price}
                         onChange={(e) => handleInputChange('price', e.target.value)}
                         required
@@ -302,51 +375,10 @@ const ListProperty = () => {
                     )}
                   </div>
 
-                  {/* Owner/Agent Details */}
-                  <div>
-                    <h3 className="text-xl font-semibold mb-4">Contact Information</h3>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                      <Input 
-                        placeholder="Your Name" 
-                        value={formData.ownerName}
-                        onChange={(e) => handleInputChange('ownerName', e.target.value)}
-                        required
-                      />
-                      <Input 
-                        placeholder="Phone Number" 
-                        value={formData.phone}
-                        onChange={(e) => handleInputChange('phone', e.target.value)}
-                        required
-                      />
-                      <Input 
-                        placeholder="Email Address" 
-                        type="email"
-                        value={formData.email}
-                        onChange={(e) => handleInputChange('email', e.target.value)}
-                        required
-                      />
-                      <Input 
-                        placeholder="WhatsApp Number" 
-                        value={formData.whatsapp}
-                        onChange={(e) => handleInputChange('whatsapp', e.target.value)}
-                      />
-                      <Select onValueChange={(value) => handleInputChange('ownerType', value)}>
-                        <SelectTrigger>
-                          <SelectValue placeholder="You are?" />
-                        </SelectTrigger>
-                        <SelectContent>
-                          <SelectItem value="owner">Property Owner</SelectItem>
-                          <SelectItem value="agent">Real Estate Agent</SelectItem>
-                          <SelectItem value="dealer">Property Dealer</SelectItem>
-                        </SelectContent>
-                      </Select>
-                    </div>
-                  </div>
-
                   {/* Submit Button */}
                   <div className="text-center pt-6">
-                    <Button type="submit" variant="success" size="lg" className="px-12">
-                      List My Property
+                    <Button type="submit" variant="success" size="lg" className="px-12" disabled={loading || !user}>
+                      {loading ? 'Listing Property...' : 'List My Property'}
                     </Button>
                     <p className="text-sm text-muted-foreground mt-4">
                       By submitting, you agree to our Terms & Conditions and Privacy Policy
@@ -360,6 +392,17 @@ const ListProperty = () => {
       </main>
       
       <Footer />
+      
+      <AuthModal 
+        open={authModalOpen} 
+        onOpenChange={setAuthModalOpen}
+        onAuthSuccess={() => {
+          toast({
+            title: "Welcome!",
+            description: "You can now list your property.",
+          });
+        }}
+      />
     </div>
   );
 };
