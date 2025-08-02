@@ -1,11 +1,10 @@
-
 import { useState, useEffect } from 'react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { MapPin, Maximize, Phone, MessageCircle, Star, Filter } from 'lucide-react';
+import { MapPin, Maximize, Phone, MessageCircle, Star, Filter, Search } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { getConvertedMeasurement } from '@/utils/unitConverter';
 import AnimatedBackground3D from '@/components/AnimatedBackground3D';
@@ -15,6 +14,7 @@ const Properties = () => {
   const [filteredProperties, setFilteredProperties] = useState<any[]>([]);
   const [filterType, setFilterType] = useState('all');
   const [sortBy, setSortBy] = useState('price-low');
+  const [searchTerm, setSearchTerm] = useState('');
 
   useEffect(() => {
     // Enhanced default properties with complete details
@@ -127,6 +127,16 @@ const Properties = () => {
   useEffect(() => {
     let filtered = [...properties];
     
+    // Apply search filter
+    if (searchTerm) {
+      filtered = filtered.filter(property => 
+        property.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        property.city.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        property.area.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        property.state.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+    }
+    
     // Apply type filter
     if (filterType !== 'all') {
       filtered = filtered.filter(property => property.type === filterType);
@@ -149,7 +159,7 @@ const Properties = () => {
     });
     
     setFilteredProperties(filtered);
-  }, [properties, filterType, sortBy]);
+  }, [properties, filterType, sortBy, searchTerm]);
 
   const getMeasurementDisplay = (size: string, unit: string) => {
     const converted = getConvertedMeasurement(size, unit);
@@ -209,39 +219,53 @@ const Properties = () => {
             </div>
           </section>
 
-          {/* Enhanced Filters */}
+          {/* Enhanced Filters with Search */}
           <div className="bg-white rounded-lg shadow-sm p-6 mb-8 animate-fade-in">
-            <div className="flex flex-col md:flex-row gap-4 items-center justify-between">
-              <div className="flex items-center gap-4">
-                <Filter className="h-5 w-5 text-gray-500" />
-                <select
-                  value={filterType}
-                  onChange={(e) => setFilterType(e.target.value)}
-                  className="border rounded-lg px-3 py-2 focus:ring-2 focus:ring-green-500"
-                >
-                  <option value="all">All Types</option>
-                  <option value="residential">Residential</option>
-                  <option value="commercial">Commercial</option>
-                  <option value="industrial">Industrial</option>
-                </select>
+            <div className="flex flex-col lg:flex-row gap-4 items-center justify-between">
+              {/* Search Bar */}
+              <div className="relative flex-1 max-w-md">
+                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
+                <input
+                  type="text"
+                  placeholder="Search by location, city, or area..."
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                  className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
+                />
               </div>
-              
-              <div className="flex items-center gap-4">
-                <span className="text-gray-600">Sort by:</span>
-                <select
-                  value={sortBy}
-                  onChange={(e) => setSortBy(e.target.value)}
-                  className="border rounded-lg px-3 py-2 focus:ring-2 focus:ring-green-500"
-                >
-                  <option value="price-low">Price: Low to High</option>
-                  <option value="price-high">Price: High to Low</option>
-                  <option value="rating">Rating</option>
-                  <option value="newest">Newest First</option>
-                </select>
-              </div>
-              
-              <div className="text-sm text-gray-600">
-                Showing {filteredProperties.length} of {properties.length} properties
+
+              <div className="flex flex-col sm:flex-row gap-4 items-center">
+                <div className="flex items-center gap-4">
+                  <Filter className="h-5 w-5 text-gray-500" />
+                  <select
+                    value={filterType}
+                    onChange={(e) => setFilterType(e.target.value)}
+                    className="border rounded-lg px-3 py-2 focus:ring-2 focus:ring-green-500"
+                  >
+                    <option value="all">All Types</option>
+                    <option value="residential">Residential</option>
+                    <option value="commercial">Commercial</option>
+                    <option value="industrial">Industrial</option>
+                  </select>
+                </div>
+                
+                <div className="flex items-center gap-4">
+                  <span className="text-gray-600">Sort by:</span>
+                  <select
+                    value={sortBy}
+                    onChange={(e) => setSortBy(e.target.value)}
+                    className="border rounded-lg px-3 py-2 focus:ring-2 focus:ring-green-500"
+                  >
+                    <option value="price-low">Price: Low to High</option>
+                    <option value="price-high">Price: High to Low</option>
+                    <option value="rating">Rating</option>
+                    <option value="newest">Newest First</option>
+                  </select>
+                </div>
+                
+                <div className="text-sm text-gray-600">
+                  Showing {filteredProperties.length} of {properties.length} properties
+                </div>
               </div>
             </div>
           </div>
@@ -252,7 +276,7 @@ const Properties = () => {
               <div className="text-center py-12 animate-fade-in">
                 <p className="text-gray-500 text-lg mb-4">No properties match your criteria.</p>
                 <Link to="/list-property">
-                  <Button className="bg-green-600 hover:bg-green-700">
+                  <Button className="bg-gradient-to-r from-green-600 to-blue-600 hover:from-green-700 hover:to-blue-700 text-white px-6 py-3 rounded-lg font-medium transition-all duration-300 hover:shadow-lg">
                     List Your Property
                   </Button>
                 </Link>
