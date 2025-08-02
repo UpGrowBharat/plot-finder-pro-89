@@ -8,6 +8,15 @@ import { Textarea } from '@/components/ui/textarea';
 import { MapPin, Phone, Mail, Clock } from 'lucide-react';
 
 const Contact = () => {
+  const openWhatsApp = () => {
+    const message = encodeURIComponent('Hi, I would like to get more information about your properties.');
+    window.open(`https://wa.me/9911288282?text=${message}`, '_blank');
+  };
+
+  const callNow = () => {
+    window.open(`tel:+9911288282`, '_self');
+  };
+
   return (
     <div className="min-h-screen bg-background">
       <Header />
@@ -66,7 +75,7 @@ const Contact = () => {
                   <Button 
                     variant="outline" 
                     className="px-8 py-3"
-                    onClick={() => window.open('tel:+91 9911288282', '_self')}
+                    onClick={callNow}
                   >
                     Call Now
                   </Button>
@@ -84,7 +93,7 @@ const Contact = () => {
                     </div>
                     <div>
                       <h3 className="font-semibold text-foreground">Phone</h3>
-                      <p className="text-muted-foreground">+91 9911288282</p>
+                      <p className="text-muted-foreground">+91 99112 88282</p>
                     </div>
                   </div>
                 </CardContent>
@@ -124,13 +133,22 @@ const Contact = () => {
                   <h3 className="text-xl font-semibold mb-2">Talk to Our Expert</h3>
                   <p className="text-primary-foreground/90 mb-4">Gaurav Aggarwal</p>
                   <p className="text-primary-foreground/80 text-sm mb-6">Senior Property Consultant</p>
-                  <Button 
-                    variant="secondary" 
-                    className="px-6 py-2"
-                    onClick={() => window.open('tel:+91 9911288282', '_self')}
-                  >
-                    Schedule a Call
-                  </Button>
+                  <div className="flex gap-2 justify-center">
+                    <Button 
+                      variant="secondary" 
+                      className="px-6 py-2"
+                      onClick={callNow}
+                    >
+                      Schedule a Call
+                    </Button>
+                    <Button 
+                      variant="secondary" 
+                      className="px-6 py-2"
+                      onClick={openWhatsApp}
+                    >
+                      WhatsApp
+                    </Button>
+                  </div>
                 </CardContent>
               </Card>
             </div>

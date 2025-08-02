@@ -1,3 +1,4 @@
+
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -8,6 +9,15 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { CheckCircle, Phone, MessageCircle } from 'lucide-react';
 
 const PropertyConsultation = () => {
+  const openWhatsApp = () => {
+    const message = encodeURIComponent('Hi, I need property consultation services. Can you help me?');
+    window.open(`https://wa.me/9911288282?text=${message}`, '_blank');
+  };
+
+  const callNow = () => {
+    window.open(`tel:+9911288282`, '_self');
+  };
+
   return (
     <div className="min-h-screen bg-background">
       <Header />
@@ -114,7 +124,7 @@ const PropertyConsultation = () => {
                   <Button 
                     variant="outline" 
                     className="px-6"
-                    onClick={() => window.open('tel:+91 9911288282', '_self')}
+                    onClick={callNow}
                   >
                     <Phone className="h-4 w-4 mr-2" />
                     Call Now
@@ -132,13 +142,22 @@ const PropertyConsultation = () => {
                   <p className="text-primary-foreground/80 text-sm mb-6">
                     15+ years experience in real estate consultation
                   </p>
-                  <Button 
-                    variant="secondary" 
-                    onClick={() => window.open('tel:+91 9911288282', '_self')}
-                  >
-                    <Phone className="h-4 w-4 mr-2" />
-                    Direct Call
-                  </Button>
+                  <div className="flex gap-2 justify-center">
+                    <Button 
+                      variant="secondary" 
+                      onClick={callNow}
+                    >
+                      <Phone className="h-4 w-4 mr-2" />
+                      Direct Call
+                    </Button>
+                    <Button 
+                      variant="secondary" 
+                      onClick={openWhatsApp}
+                    >
+                      <MessageCircle className="h-4 w-4 mr-2" />
+                      Chat Now
+                    </Button>
+                  </div>
                 </CardContent>
               </Card>
 

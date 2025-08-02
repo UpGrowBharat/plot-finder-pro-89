@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -170,7 +169,12 @@ const IndiaMap = () => {
   ];
 
   const openWhatsApp = (phone: string) => {
-    window.open(`https://wa.me/${phone.replace(/[^0-9]/g, '')}`, '_blank');
+    const message = encodeURIComponent('Hi, I am interested in this property. Can you provide more details?');
+    window.open(`https://wa.me/9911288282?text=${message}`, '_blank');
+  };
+
+  const callNow = (phone: string) => {
+    window.open(`tel:+9911288282`, '_self');
   };
 
   return (
@@ -348,7 +352,7 @@ const IndiaMap = () => {
                                 size="sm" 
                                 variant="outline" 
                                 className="flex-1 text-xs"
-                                onClick={() => window.open(`tel:${property.agentPhone}`, '_self')}
+                                onClick={() => callNow(property.agentPhone)}
                               >
                                 <Phone className="h-3 w-3 mr-1" />
                                 Call

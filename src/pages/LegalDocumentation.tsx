@@ -1,3 +1,4 @@
+
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -5,9 +6,18 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { FileText, Shield, CheckCircle, Phone } from 'lucide-react';
+import { FileText, Shield, CheckCircle, Phone, MessageCircle } from 'lucide-react';
 
 const LegalDocumentation = () => {
+  const openWhatsApp = () => {
+    const message = encodeURIComponent('Hi, I need help with legal documentation for property. Can you assist me?');
+    window.open(`https://wa.me/9911288282?text=${message}`, '_blank');
+  };
+
+  const callNow = () => {
+    window.open(`tel:+9911288282`, '_self');
+  };
+
   return (
     <div className="min-h-screen bg-background">
       <Header />
@@ -104,7 +114,7 @@ const LegalDocumentation = () => {
                   <Button 
                     variant="outline" 
                     className="px-6"
-                    onClick={() => window.open('tel:+91 9911288282', '_self')}
+                    onClick={callNow}
                   >
                     <Phone className="h-4 w-4 mr-2" />
                     Call Now
@@ -160,13 +170,22 @@ const LegalDocumentation = () => {
                   <p className="text-primary-foreground/80 text-sm mb-6">
                     Specialized in property law with 20+ years experience
                   </p>
-                  <Button 
-                    variant="secondary" 
-                    onClick={() => window.open('tel:+91 9911288282', '_self')}
-                  >
-                    <Phone className="h-4 w-4 mr-2" />
-                    Consult Now
-                  </Button>
+                  <div className="flex gap-2 justify-center">
+                    <Button 
+                      variant="secondary" 
+                      onClick={callNow}
+                    >
+                      <Phone className="h-4 w-4 mr-2" />
+                      Consult Now
+                    </Button>
+                    <Button 
+                      variant="secondary" 
+                      onClick={openWhatsApp}
+                    >
+                      <MessageCircle className="h-4 w-4 mr-2" />
+                      Chat Now
+                    </Button>
+                  </div>
                 </CardContent>
               </Card>
             </div>

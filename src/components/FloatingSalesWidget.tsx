@@ -6,15 +6,16 @@ import { Phone, MessageCircle, X, User } from 'lucide-react';
 
 const FloatingSalesWidget = () => {
   const [isExpanded, setIsExpanded] = useState(false);
-  const phone = '+91 9911288282';
+  const phone = '+9911288282';
   const email = 'contact@90acre.com';
   
   const openWhatsApp = () => {
-    window.open(`https://wa.me/${phone.replace(/[^0-9]/g, '')}`, '_blank');
+    const message = encodeURIComponent('Hi, I am interested in your properties. Can you help me?');
+    window.open(`https://wa.me/9911288282?text=${message}`, '_blank');
   };
 
   const callAgent = () => {
-    window.open(`tel:${phone}`, '_self');
+    window.open(`tel:+9911288282`, '_self');
   };
 
   return (
@@ -69,7 +70,7 @@ const FloatingSalesWidget = () => {
       
       <Button
         onClick={() => setIsExpanded(!isExpanded)}
-        className="rounded-full h-14 w-14 bg-primary hover:bg-primary/90 shadow-lg"
+        className="rounded-full h-14 w-14 bg-primary hover:bg-primary/90"
         size="icon"
       >
         {isExpanded ? (

@@ -1,3 +1,4 @@
+
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -8,6 +9,15 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { TrendingUp, PieChart, Target, Phone, MessageCircle } from 'lucide-react';
 
 const InvestmentAdvisory = () => {
+  const openWhatsApp = () => {
+    const message = encodeURIComponent('Hi, I need investment advisory services. Can you help me with property investment planning?');
+    window.open(`https://wa.me/9911288282?text=${message}`, '_blank');
+  };
+
+  const callNow = () => {
+    window.open(`tel:+9911288282`, '_self');
+  };
+
   return (
     <div className="min-h-screen bg-background">
       <Header />
@@ -128,7 +138,7 @@ const InvestmentAdvisory = () => {
                   <Button 
                     variant="outline" 
                     className="px-6"
-                    onClick={() => window.open('tel:+91 9911288282', '_self')}
+                    onClick={callNow}
                   >
                     <Phone className="h-4 w-4 mr-2" />
                     Call Now
@@ -138,7 +148,7 @@ const InvestmentAdvisory = () => {
                   <Button 
                     variant="outline" 
                     className="w-full"
-                    onClick={() => window.open('https://wa.me/919911288282?text=Hi, I need investment advisory services', '_blank')}
+                    onClick={openWhatsApp}
                   >
                     <MessageCircle className="h-4 w-4 mr-2" />
                     WhatsApp Consultation
@@ -159,14 +169,14 @@ const InvestmentAdvisory = () => {
                   <div className="flex gap-4 justify-center">
                     <Button 
                       variant="secondary" 
-                      onClick={() => window.open('tel:+91 9911288282', '_self')}
+                      onClick={callNow}
                     >
                       <Phone className="h-4 w-4 mr-2" />
                       Direct Call
                     </Button>
                     <Button 
                       variant="secondary" 
-                      onClick={() => window.open('https://wa.me/919911288282', '_blank')}
+                      onClick={openWhatsApp}
                     >
                       <MessageCircle className="h-4 w-4 mr-2" />
                       WhatsApp

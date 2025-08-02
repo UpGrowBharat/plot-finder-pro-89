@@ -89,7 +89,12 @@ const PropertySlider = () => {
   };
 
   const openWhatsApp = (phone: string) => {
-    window.open(`https://wa.me/${phone.replace(/[^0-9]/g, '')}`, '_blank');
+    const message = encodeURIComponent('Hi, I am interested in this property. Can you provide more details?');
+    window.open(`https://wa.me/9911288282?text=${message}`, '_blank');
+  };
+
+  const callNow = (phone: string) => {
+    window.open(`tel:+9911288282`, '_self');
   };
 
   return (
@@ -200,7 +205,7 @@ const PropertySlider = () => {
                             </div>
                             <div className="text-right">
                               <p className="text-xs text-muted-foreground">Contact</p>
-                              <p className="text-xs font-medium text-foreground">{property.phone}</p>
+                              <p className="text-xs font-medium text-foreground">+91 99112 88282</p>
                             </div>
                           </div>
                           <div className="flex gap-2">
@@ -208,7 +213,7 @@ const PropertySlider = () => {
                               size="sm" 
                               variant="outline" 
                               className="flex-1 text-xs"
-                              onClick={() => window.open(`tel:${property.phone}`, '_self')}
+                              onClick={() => callNow(property.phone)}
                             >
                               <Phone className="h-3 w-3 mr-1" />
                               Call
