@@ -28,36 +28,36 @@ export default {
 			},
 			colors: {
 				border: 'hsl(229 231 235)',
-				input: 'hsl(229 231 235)',
-				ring: 'hsl(34 197 94)',
+				input: 'hsl(255 255 255)',
+				ring: 'hsl(142 69% 58%)',
 				background: 'hsl(255 255 255)',
 				foreground: 'hsl(17 24 39)',
 				primary: {
-					DEFAULT: 'hsl(34 197 94)',
+					DEFAULT: 'hsl(142 69% 58%)',
 					foreground: 'hsl(255 255 255)'
 				},
 				success: {
-					DEFAULT: 'hsl(34 197 94)',
+					DEFAULT: 'hsl(142 69% 58%)',
 					foreground: 'hsl(255 255 255)'
 				},
 				warning: {
-					DEFAULT: 'hsl(34 197 94)',
-					foreground: 'hsl(255 255 255)'
+					DEFAULT: 'hsl(249 250 251)',
+					foreground: 'hsl(17 24 39)'
 				},
 				secondary: {
-					DEFAULT: 'hsl(243 244 246)',
+					DEFAULT: 'hsl(249 250 251)',
 					foreground: 'hsl(17 24 39)'
 				},
 				destructive: {
-					DEFAULT: 'hsl(239 68 68)',
+					DEFAULT: 'hsl(0 84% 60%)',
 					foreground: 'hsl(255 255 255)'
 				},
 				muted: {
-					DEFAULT: 'hsl(243 244 246)',
+					DEFAULT: 'hsl(249 250 251)',
 					foreground: 'hsl(107 114 128)'
 				},
 				accent: {
-					DEFAULT: 'hsl(243 244 246)',
+					DEFAULT: 'hsl(249 250 251)',
 					foreground: 'hsl(17 24 39)'
 				},
 				popover: {
@@ -69,14 +69,14 @@ export default {
 					foreground: 'hsl(17 24 39)'
 				},
 				sidebar: {
-					DEFAULT: 'hsl(249 250 251)',
+					DEFAULT: 'hsl(255 255 255)',
 					foreground: 'hsl(55 65 81)',
 					primary: 'hsl(17 24 39)',
-					'primary-foreground': 'hsl(249 250 251)',
-					accent: 'hsl(243 244 246)',
+					'primary-foreground': 'hsl(255 255 255)',
+					accent: 'hsl(249 250 251)',
 					'accent-foreground': 'hsl(17 24 39)',
 					border: 'hsl(229 231 235)',
-					ring: 'hsl(34 197 94)'
+					ring: 'hsl(142 69% 58%)'
 				}
 			},
 			borderRadius: {

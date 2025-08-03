@@ -7,7 +7,7 @@
 
 @layer base {
   :root {
-    --background: 249 250 251;
+    --background: 255 255 255;
     --foreground: 17 24 39;
 
     --card: 255 255 255;
@@ -22,39 +22,39 @@
     --success: 34 197 94;
     --success-foreground: 255 255 255;
     
-    --warning: 34 197 94;
-    --warning-foreground: 255 255 255;
+    --warning: 249 250 251;
+    --warning-foreground: 17 24 39;
     
     --gradient-primary: linear-gradient(135deg, hsl(142 69% 58%), hsl(142 76% 36%));
-    --gradient-hero: linear-gradient(135deg, hsl(142 69% 58%) 0%, hsl(217 91% 60%) 100%);
+    --gradient-hero: linear-gradient(135deg, hsl(255 255 255) 0%, hsl(255 255 255) 100%);
     --gradient-card: linear-gradient(135deg, hsl(255 255 255) 0%, hsl(255 255 255) 100%);
     
     --shadow-elegant: 0 4px 6px -1px hsl(220 13% 91% / 0.1), 0 2px 4px -2px hsl(220 13% 91% / 0.1);
     --shadow-hover: 0 20px 25px -5px hsl(142 69% 58% / 0.1), 0 8px 10px -6px hsl(142 69% 58% / 0.1);
 
-    --secondary: 243 244 246;
+    --secondary: 249 250 251;
     --secondary-foreground: 17 24 39;
 
-    --muted: 243 244 246;
+    --muted: 249 250 251;
     --muted-foreground: 107 114 128;
 
-    --accent: 243 244 246;
+    --accent: 249 250 251;
     --accent-foreground: 17 24 39;
 
     --destructive: 239 68 68;
     --destructive-foreground: 255 255 255;
 
     --border: 229 231 235;
-    --input: 229 231 235;
+    --input: 255 255 255;
     --ring: 34 197 94;
 
     --radius: 0.75rem;
 
-    --sidebar-background: 249 250 251;
+    --sidebar-background: 255 255 255;
     --sidebar-foreground: 55 65 81;
     --sidebar-primary: 17 24 39;
-    --sidebar-primary-foreground: 249 250 251;
-    --sidebar-accent: 243 244 246;
+    --sidebar-primary-foreground: 255 255 255;
+    --sidebar-accent: 249 250 251;
     --sidebar-accent-foreground: 17 24 39;
     --sidebar-border: 229 231 235;
     --sidebar-ring: 34 197 94;
@@ -86,7 +86,7 @@
     --destructive-foreground: 249 250 251;
 
     --border: 31 41 55;
-    --input: 31 41 55;
+    --input: 255 255 255;
     --ring: 34 197 94;
     
     --sidebar-background: 17 24 39;
@@ -108,6 +108,7 @@
   body {
     @apply bg-white text-gray-900 antialiased;
     font-family: 'Poppins', system-ui, -apple-system, sans-serif;
+    background-color: #ffffff !important;
   }
   
   h1, h2, h3, h4, h5, h6 {
@@ -122,6 +123,9 @@
   
   .text-gradient {
     @apply text-gray-900;
+    background: none !important;
+    -webkit-background-clip: unset !important;
+    background-clip: unset !important;
   }
   
   .modern-card {
@@ -130,6 +134,7 @@
   
   .glassmorphism {
     @apply bg-white border border-gray-200 rounded-3xl shadow-lg;
+    backdrop-filter: none !important;
   }
   
   .gradient-bg {
@@ -140,50 +145,70 @@
     @apply text-gray-900 bg-white;
   }
   
-  /* Completely remove all yellow colors */
+  /* Force remove ALL yellow colors completely */
   *[class*="yellow"], 
+  .text-yellow-50,
+  .text-yellow-100,
+  .text-yellow-200,
+  .text-yellow-300,
   .text-yellow-400,
   .text-yellow-500,
+  .text-yellow-600,
+  .text-yellow-700,
+  .text-yellow-800,
+  .text-yellow-900,
+  .bg-yellow-50,
+  .bg-yellow-100,
+  .bg-yellow-200,
+  .bg-yellow-300,
   .bg-yellow-400,
   .bg-yellow-500,
+  .bg-yellow-600,
+  .bg-yellow-700,
+  .bg-yellow-800,
+  .bg-yellow-900,
+  .border-yellow-50,
+  .border-yellow-100,
+  .border-yellow-200,
+  .border-yellow-300,
   .border-yellow-400,
   .border-yellow-500,
+  .border-yellow-600,
+  .border-yellow-700,
+  .border-yellow-800,
+  .border-yellow-900,
+  .fill-yellow-50,
+  .fill-yellow-100,
+  .fill-yellow-200,
+  .fill-yellow-300,
   .fill-yellow-400,
-  .fill-yellow-500 {
-    @apply text-green-500 bg-green-500 border-green-500 fill-green-500 !important;
+  .fill-yellow-500,
+  .fill-yellow-600,
+  .fill-yellow-700,
+  .fill-yellow-800,
+  .fill-yellow-900 {
+    @apply text-gray-900 bg-white border-gray-200 fill-gray-900 !important;
   }
   
-  /* Enhanced styles for all devices */
+  /* Enhanced styles for all devices with white backgrounds */
   body {
     @apply text-gray-900 bg-white;
     -webkit-text-size-adjust: 100%;
     text-rendering: optimizeLegibility;
-  }
-  
-  .text-gradient {
-    @apply text-gray-900;
-    background: none !important;
-    -webkit-background-clip: unset !important;
-    background-clip: unset !important;
-  }
-  
-  .glassmorphism {
-    @apply bg-white border border-gray-200 shadow-lg;
-    backdrop-filter: none !important;
-  }
-  
-  .modern-card {
-    @apply bg-white shadow-lg;
+    background-color: #ffffff !important;
   }
   
   button {
     @apply touch-manipulation bg-green-600 text-white;
     min-height: 44px;
+    background-color: #16a34a !important;
   }
   
   input, select, textarea {
     @apply text-base bg-white border-gray-300 text-gray-900;
     font-size: 16px !important;
+    background-color: #ffffff !important;
+    color: #111827 !important;
   }
   
   .hero-bg-effects {
@@ -191,7 +216,7 @@
   }
 }
 
-/* Ensure consistent colors across all devices */
+/* Ensure consistent white colors across all devices */
 * {
   -webkit-tap-highlight-color: transparent;
 }
@@ -203,17 +228,44 @@
   @apply fill-green-500 text-green-500 !important;
 }
 
-/* Force remove any yellow backgrounds completely */
+/* Force remove ANY yellow backgrounds completely */
 [style*="yellow"], 
-[class*="yellow"] {
+[class*="yellow"],
+[style*="rgb(254, 240, 138)"],
+[style*="rgb(253, 230, 138)"],
+[style*="rgb(252, 211, 77)"],
+[style*="rgb(251, 191, 36)"],
+[style*="rgb(245, 158, 11)"],
+[style*="#fef08a"],
+[style*="#fde047"],
+[style*="#facc15"],
+[style*="#eab308"],
+[style*="#ca8a04"] {
   background-color: #ffffff !important;
   color: #111827 !important;
+  border-color: #e5e7eb !important;
 }
 
 /* Remove any yellow container backgrounds */
 .bg-yellow-50,
 .bg-yellow-100,
 .bg-yellow-200,
-.bg-yellow-300 {
+.bg-yellow-300,
+.bg-yellow-400,
+.bg-yellow-500,
+.bg-yellow-600,
+.bg-yellow-700,
+.bg-yellow-800,
+.bg-yellow-900 {
   @apply bg-white !important;
+}
+
+/* Force all form elements to white background */
+form, input, select, textarea, button {
+  background-color: #ffffff !important;
+}
+
+/* Override any system yellow colors */
+body, html, #root, main, section, div {
+  background-color: #ffffff !important;
 }
