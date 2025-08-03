@@ -27,7 +27,7 @@
     
     --gradient-primary: linear-gradient(135deg, hsl(142 69% 58%), hsl(142 76% 36%));
     --gradient-hero: linear-gradient(135deg, hsl(142 69% 58%) 0%, hsl(217 91% 60%) 100%);
-    --gradient-card: linear-gradient(135deg, hsl(249 250 251) 0%, hsl(249 250 251) 100%);
+    --gradient-card: linear-gradient(135deg, hsl(255 255 255) 0%, hsl(255 255 255) 100%);
     
     --shadow-elegant: 0 4px 6px -1px hsl(220 13% 91% / 0.1), 0 2px 4px -2px hsl(220 13% 91% / 0.1);
     --shadow-hover: 0 20px 25px -5px hsl(142 69% 58% / 0.1), 0 8px 10px -6px hsl(142 69% 58% / 0.1);
@@ -106,12 +106,12 @@
   }
 
   body {
-    @apply bg-background text-foreground antialiased;
+    @apply bg-white text-gray-900 antialiased;
     font-family: 'Poppins', system-ui, -apple-system, sans-serif;
   }
   
   h1, h2, h3, h4, h5, h6 {
-    @apply font-semibold tracking-tight;
+    @apply font-semibold tracking-tight text-gray-900;
   }
 }
 
@@ -121,27 +121,26 @@
   }
   
   .text-gradient {
-    @apply bg-gradient-to-r from-green-600 to-blue-600 bg-clip-text text-transparent;
+    @apply text-gray-900;
   }
   
   .modern-card {
-    @apply bg-white backdrop-blur-lg border border-gray-200 shadow-xl rounded-2xl transition-all duration-300 hover:shadow-2xl hover:scale-105;
+    @apply bg-white border border-gray-200 shadow-xl rounded-2xl transition-all duration-300 hover:shadow-2xl;
   }
   
   .glassmorphism {
-    @apply bg-white/95 backdrop-blur-sm border border-gray-200 rounded-3xl shadow-lg;
+    @apply bg-white border border-gray-200 rounded-3xl shadow-lg;
   }
   
   .gradient-bg {
-    background: linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(var(--primary) / 0.8) 100%);
+    @apply bg-white;
   }
   
-  /* Mobile optimizations - ensure consistent appearance across all devices */
   .mobile-optimized {
     @apply text-gray-900 bg-white;
   }
   
-  /* Remove all yellow colors and effects globally */
+  /* Completely remove all yellow colors */
   *[class*="yellow"], 
   .text-yellow-400,
   .text-yellow-500,
@@ -151,49 +150,44 @@
   .border-yellow-500,
   .fill-yellow-400,
   .fill-yellow-500 {
-    @apply text-green-500 bg-green-500 border-green-500 fill-green-500;
+    @apply text-green-500 bg-green-500 border-green-500 fill-green-500 !important;
   }
   
-  /* Enhanced mobile styles */
-  @media (max-width: 768px) {
-    body {
-      @apply text-gray-900 bg-white;
-      -webkit-text-size-adjust: 100%;
-      text-rendering: optimizeLegibility;
-    }
-    
-    .text-gradient {
-      @apply text-gray-900;
-      background: none !important;
-      -webkit-background-clip: unset !important;
-      background-clip: unset !important;
-    }
-    
-    .glassmorphism {
-      @apply bg-white border border-gray-200 shadow-lg;
-      backdrop-filter: none !important;
-    }
-    
-    .modern-card {
-      @apply bg-white shadow-lg transform-none hover:scale-100;
-    }
-    
-    /* Better button styles for mobile */
-    button {
-      @apply touch-manipulation bg-green-600 text-white;
-      min-height: 44px;
-    }
-    
-    /* Improved form inputs for mobile */
-    input, select, textarea {
-      @apply text-base bg-white border-gray-300 text-gray-900;
-      font-size: 16px !important;
-    }
-    
-    /* Remove any background effects on mobile */
-    .hero-bg-effects {
-      display: none !important;
-    }
+  /* Enhanced styles for all devices */
+  body {
+    @apply text-gray-900 bg-white;
+    -webkit-text-size-adjust: 100%;
+    text-rendering: optimizeLegibility;
+  }
+  
+  .text-gradient {
+    @apply text-gray-900;
+    background: none !important;
+    -webkit-background-clip: unset !important;
+    background-clip: unset !important;
+  }
+  
+  .glassmorphism {
+    @apply bg-white border border-gray-200 shadow-lg;
+    backdrop-filter: none !important;
+  }
+  
+  .modern-card {
+    @apply bg-white shadow-lg;
+  }
+  
+  button {
+    @apply touch-manipulation bg-green-600 text-white;
+    min-height: 44px;
+  }
+  
+  input, select, textarea {
+    @apply text-base bg-white border-gray-300 text-gray-900;
+    font-size: 16px !important;
+  }
+  
+  .hero-bg-effects {
+    display: none !important;
   }
 }
 
@@ -209,9 +203,17 @@
   @apply fill-green-500 text-green-500 !important;
 }
 
-/* Force remove any yellow backgrounds */
+/* Force remove any yellow backgrounds completely */
 [style*="yellow"], 
 [class*="yellow"] {
-  background-color: #10b981 !important;
-  color: #ffffff !important;
+  background-color: #ffffff !important;
+  color: #111827 !important;
+}
+
+/* Remove any yellow container backgrounds */
+.bg-yellow-50,
+.bg-yellow-100,
+.bg-yellow-200,
+.bg-yellow-300 {
+  @apply bg-white !important;
 }
