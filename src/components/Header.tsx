@@ -23,7 +23,7 @@ const Header = () => {
   ];
 
   return (
-    <header className="bg-white/95 backdrop-blur-sm border-b border-gray-200 sticky top-0 z-50 shadow-sm">
+    <header className="bg-white backdrop-blur-sm border-b-2 border-gray-200 sticky top-0 z-50 shadow-lg mobile-optimized">
       <div className="max-w-6xl mx-auto px-6 lg:px-8 py-4">
         <div className="flex items-center justify-between">
           {/* Logo */}
@@ -32,7 +32,7 @@ const Header = () => {
               <img 
                 src="/lovable-uploads/4526009d-665d-4c09-9366-2ce5b14b12e7.png" 
                 alt="90acre.com" 
-                className="h-20 w-auto" 
+                className="h-16 sm:h-20 w-auto" 
               />
             </Link>
           </div>
@@ -43,7 +43,7 @@ const Header = () => {
               <Link
                 key={item.name}
                 to={item.href}
-                className="text-gray-700 hover:text-green-600 transition-colors duration-300 font-medium text-base"
+                className="text-gray-800 hover:text-green-600 transition-colors duration-300 font-semibold text-base mobile-optimized"
               >
                 {item.name}
               </Link>
@@ -52,7 +52,7 @@ const Header = () => {
             {/* Policies Dropdown */}
             <div className="relative group">
               <button
-                className="text-gray-700 hover:text-green-600 transition-colors duration-300 font-medium text-base flex items-center gap-1"
+                className="text-gray-800 hover:text-green-600 transition-colors duration-300 font-semibold text-base flex items-center gap-1 mobile-optimized"
                 onMouseEnter={() => setIsPolicyMenuOpen(true)}
                 onMouseLeave={() => setIsPolicyMenuOpen(false)}
               >
@@ -62,7 +62,7 @@ const Header = () => {
               
               {isPolicyMenuOpen && (
                 <div 
-                  className="absolute top-full left-0 mt-2 w-56 bg-white rounded-lg shadow-lg border border-gray-100 py-2"
+                  className="absolute top-full left-0 mt-2 w-56 bg-white rounded-xl shadow-xl border-2 border-gray-200 py-2 mobile-optimized"
                   onMouseEnter={() => setIsPolicyMenuOpen(true)}
                   onMouseLeave={() => setIsPolicyMenuOpen(false)}
                 >
@@ -70,7 +70,7 @@ const Header = () => {
                     <Link
                       key={item.name}
                       to={item.href}
-                      className="block px-4 py-2 text-sm text-gray-700 hover:text-green-600 hover:bg-gray-50"
+                      className="block px-4 py-3 text-sm text-gray-800 hover:text-green-600 hover:bg-green-50 mobile-optimized"
                     >
                       {item.name}
                     </Link>
@@ -83,7 +83,7 @@ const Header = () => {
           {/* CTA Button */}
           <div className="hidden md:flex">
             <Link to="/list-property">
-              <Button className="bg-green-600 hover:bg-green-700 text-white px-6 py-2 rounded-lg font-medium transition-all duration-300 hover:shadow-lg">
+              <Button className="bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-xl font-semibold transition-all duration-300 hover:shadow-lg mobile-optimized">
                 List Property
               </Button>
             </Link>
@@ -93,7 +93,7 @@ const Header = () => {
           <Button
             variant="ghost"
             size="sm"
-            className="lg:hidden"
+            className="lg:hidden text-gray-800 hover:text-green-600 mobile-optimized"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
           >
             {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
@@ -102,25 +102,25 @@ const Header = () => {
 
         {/* Mobile Navigation */}
         {isMenuOpen && (
-          <div className="lg:hidden mt-6 pb-6 border-t border-gray-200 pt-6 space-y-4 animate-fade-in">
+          <div className="lg:hidden mt-6 pb-6 border-t-2 border-gray-200 pt-6 space-y-4 animate-fade-in mobile-optimized">
             {mainNavItems.map((item) => (
               <Link
                 key={item.name}
                 to={item.href}
-                className="block text-gray-700 hover:text-green-600 transition-colors duration-300 font-medium py-2"
+                className="block text-gray-800 hover:text-green-600 transition-colors duration-300 font-semibold py-3 mobile-optimized"
                 onClick={() => setIsMenuOpen(false)}
               >
                 {item.name}
               </Link>
             ))}
             
-            <div className="border-t border-gray-200 pt-4">
-              <p className="text-sm font-medium text-gray-500 mb-3">Policies</p>
+            <div className="border-t-2 border-gray-200 pt-4">
+              <p className="text-sm font-semibold text-gray-700 mb-3 mobile-optimized">Policies</p>
               {policyItems.map((item) => (
                 <Link
                   key={item.name}
                   to={item.href}
-                  className="block text-gray-600 hover:text-green-600 transition-colors duration-300 py-2 pl-4"
+                  className="block text-gray-700 hover:text-green-600 transition-colors duration-300 py-2 pl-4 mobile-optimized"
                   onClick={() => setIsMenuOpen(false)}
                 >
                   {item.name}
@@ -130,7 +130,7 @@ const Header = () => {
             
             <div className="pt-4">
               <Link to="/list-property">
-                <Button className="bg-green-600 hover:bg-green-700 text-white w-full rounded-lg font-medium">
+                <Button className="bg-green-600 hover:bg-green-700 text-white w-full rounded-xl font-semibold py-3 mobile-optimized">
                   List Property
                 </Button>
               </Link>

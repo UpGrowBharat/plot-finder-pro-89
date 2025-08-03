@@ -136,56 +136,63 @@
     background: linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(var(--primary) / 0.8) 100%);
   }
   
-  /* Mobile-first responsive design */
-  @media (max-width: 767px) {
+  /* Mobile optimizations - ensure consistent appearance across all devices */
+  .mobile-optimized {
+    @apply text-gray-900 bg-white;
+  }
+  
+  /* Remove all yellow colors and effects globally */
+  *[class*="yellow"], 
+  .text-yellow-400,
+  .text-yellow-500,
+  .bg-yellow-400,
+  .bg-yellow-500,
+  .border-yellow-400,
+  .border-yellow-500,
+  .fill-yellow-400,
+  .fill-yellow-500 {
+    @apply text-green-500 bg-green-500 border-green-500 fill-green-500;
+  }
+  
+  /* Enhanced mobile styles */
+  @media (max-width: 768px) {
+    body {
+      @apply text-gray-900 bg-white;
+      -webkit-text-size-adjust: 100%;
+      text-rendering: optimizeLegibility;
+    }
+    
     .text-gradient {
       @apply text-gray-900;
-      background: none;
-      -webkit-background-clip: unset;
-      background-clip: unset;
+      background: none !important;
+      -webkit-background-clip: unset !important;
+      background-clip: unset !important;
     }
     
     .glassmorphism {
       @apply bg-white border border-gray-200 shadow-lg;
-      backdrop-filter: none;
+      backdrop-filter: none !important;
     }
     
     .modern-card {
       @apply bg-white shadow-lg transform-none hover:scale-100;
     }
     
-    /* Remove all yellow colors on mobile */
-    .text-yellow-400,
-    .bg-yellow-400,
-    .border-yellow-400,
-    .fill-yellow-400 {
-      @apply text-green-500 bg-green-500 border-green-500 fill-green-500;
-    }
-    
-    /* Improve text readability on mobile */
-    body {
-      @apply text-gray-900;
-      -webkit-text-size-adjust: 100%;
-      text-rendering: optimizeLegibility;
-    }
-    
     /* Better button styles for mobile */
     button {
-      @apply touch-manipulation;
+      @apply touch-manipulation bg-green-600 text-white;
       min-height: 44px;
     }
     
     /* Improved form inputs for mobile */
     input, select, textarea {
-      @apply text-base;
+      @apply text-base bg-white border-gray-300 text-gray-900;
       font-size: 16px !important;
     }
-  }
-  
-  /* Tablet optimizations */
-  @media (min-width: 768px) and (max-width: 1023px) {
-    .glassmorphism {
-      @apply bg-white/90 backdrop-blur-md;
+    
+    /* Remove any background effects on mobile */
+    .hero-bg-effects {
+      display: none !important;
     }
   }
 }
@@ -195,8 +202,16 @@
   -webkit-tap-highlight-color: transparent;
 }
 
-/* Star rating colors fix */
+/* Star rating colors fix - force green on all devices */
 .star-rating .fill-yellow-400,
-.star-rating .text-yellow-400 {
-  @apply fill-green-500 text-green-500;
+.star-rating .text-yellow-400,
+.star-rating svg {
+  @apply fill-green-500 text-green-500 !important;
+}
+
+/* Force remove any yellow backgrounds */
+[style*="yellow"], 
+[class*="yellow"] {
+  background-color: #10b981 !important;
+  color: #ffffff !important;
 }

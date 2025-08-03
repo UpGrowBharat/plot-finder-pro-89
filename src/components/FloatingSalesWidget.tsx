@@ -21,34 +21,34 @@ const FloatingSalesWidget = () => {
   return (
     <div className="fixed bottom-6 right-6 z-50">
       {isExpanded && (
-        <Card className="mb-4 w-72 bg-white shadow-lg border">
+        <Card className="mb-4 w-72 bg-white shadow-xl border-2 border-gray-200 mobile-optimized">
           <CardContent className="p-4">
             <div className="flex items-center justify-between mb-3">
-              <h3 className="font-semibold text-gray-900">Need Help?</h3>
+              <h3 className="font-semibold text-gray-900 mobile-optimized">Need Help?</h3>
               <Button
                 variant="ghost"
                 size="sm"
                 onClick={() => setIsExpanded(false)}
-                className="h-6 w-6 p-0"
+                className="h-6 w-6 p-0 text-gray-600 hover:text-gray-800 mobile-optimized"
               >
                 <X className="h-4 w-4" />
               </Button>
             </div>
             
             <div className="flex items-center gap-3 mb-4">
-              <div className="w-12 h-12 bg-primary rounded-full flex items-center justify-center">
+              <div className="w-12 h-12 bg-green-600 rounded-full flex items-center justify-center">
                 <User className="h-6 w-6 text-white" />
               </div>
               <div>
-                <p className="font-medium text-gray-900">Gaurav Aggarwal</p>
-                <p className="text-sm text-gray-600">Property Consultant</p>
+                <p className="font-semibold text-gray-900 mobile-optimized">Gaurav Aggarwal</p>
+                <p className="text-sm text-gray-700 mobile-optimized">Property Consultant</p>
               </div>
             </div>
             
             <div className="space-y-2">
               <Button
                 onClick={callAgent}
-                className="w-full bg-primary hover:bg-primary/90"
+                className="w-full bg-green-600 hover:bg-green-700 text-white mobile-optimized"
                 size="sm"
               >
                 <Phone className="h-4 w-4 mr-2" />
@@ -57,7 +57,7 @@ const FloatingSalesWidget = () => {
               <Button
                 onClick={openWhatsApp}
                 variant="outline"
-                className="w-full border-green-600 text-green-600 hover:bg-green-50"
+                className="w-full border-2 border-green-600 text-green-600 hover:bg-green-50 mobile-optimized"
                 size="sm"
               >
                 <MessageCircle className="h-4 w-4 mr-2" />
@@ -70,7 +70,7 @@ const FloatingSalesWidget = () => {
       
       <Button
         onClick={() => setIsExpanded(!isExpanded)}
-        className="rounded-full h-14 w-14 bg-primary hover:bg-primary/90"
+        className="rounded-full h-14 w-14 bg-green-600 hover:bg-green-700 text-white shadow-xl mobile-optimized"
         size="icon"
       >
         {isExpanded ? (
