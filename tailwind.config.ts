@@ -13,8 +13,12 @@ export default {
 	theme: {
 		container: {
 			center: true,
-			padding: '2rem',
+			padding: '1rem',
 			screens: {
+				'sm': '640px',
+				'md': '768px',
+				'lg': '1024px',
+				'xl': '1280px',
 				'2xl': '1400px'
 			}
 		},
@@ -90,6 +94,13 @@ export default {
 				'hover': 'var(--shadow-hover)',
 				'glow': '0 0 30px rgba(34, 197, 94, 0.3)',
 				'inner-glow': 'inset 0 1px 0 rgba(255, 255, 255, 0.1)'
+			},
+			screens: {
+				'xs': '475px',
+			},
+			spacing: {
+				'18': '4.5rem',
+				'88': '22rem',
 			},
 			keyframes: {
 				'accordion-down': {

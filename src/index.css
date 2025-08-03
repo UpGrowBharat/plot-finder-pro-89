@@ -22,7 +22,7 @@
     --success: 34 197 94;
     --success-foreground: 255 255 255;
     
-    --warning: 251 146 60;
+    --warning: 34 197 94;
     --warning-foreground: 255 255 255;
     
     --gradient-primary: linear-gradient(135deg, hsl(142 69% 58%), hsl(142 76% 36%));
@@ -129,27 +129,74 @@
   }
   
   .glassmorphism {
-    @apply bg-white/90 backdrop-blur-sm border border-gray-200 rounded-3xl shadow-lg;
+    @apply bg-white/95 backdrop-blur-sm border border-gray-200 rounded-3xl shadow-lg;
   }
   
   .gradient-bg {
     background: linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(var(--primary) / 0.8) 100%);
   }
   
-  /* Mobile optimizations */
-  @media (max-width: 768px) {
+  /* Mobile-first responsive design */
+  @media (max-width: 767px) {
     .text-gradient {
-      @apply text-gray-900 bg-none;
+      @apply text-gray-900;
+      background: none;
       -webkit-background-clip: unset;
       background-clip: unset;
     }
     
     .glassmorphism {
-      @apply bg-white border border-gray-200 shadow-md;
+      @apply bg-white border border-gray-200 shadow-lg;
+      backdrop-filter: none;
     }
     
     .modern-card {
-      @apply bg-white shadow-md;
+      @apply bg-white shadow-lg transform-none hover:scale-100;
+    }
+    
+    /* Remove all yellow colors on mobile */
+    .text-yellow-400,
+    .bg-yellow-400,
+    .border-yellow-400,
+    .fill-yellow-400 {
+      @apply text-green-500 bg-green-500 border-green-500 fill-green-500;
+    }
+    
+    /* Improve text readability on mobile */
+    body {
+      @apply text-gray-900;
+      -webkit-text-size-adjust: 100%;
+      text-rendering: optimizeLegibility;
+    }
+    
+    /* Better button styles for mobile */
+    button {
+      @apply touch-manipulation;
+      min-height: 44px;
+    }
+    
+    /* Improved form inputs for mobile */
+    input, select, textarea {
+      @apply text-base;
+      font-size: 16px !important;
     }
   }
+  
+  /* Tablet optimizations */
+  @media (min-width: 768px) and (max-width: 1023px) {
+    .glassmorphism {
+      @apply bg-white/90 backdrop-blur-md;
+    }
+  }
+}
+
+/* Ensure consistent colors across all devices */
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Star rating colors fix */
+.star-rating .fill-yellow-400,
+.star-rating .text-yellow-400 {
+  @apply fill-green-500 text-green-500;
 }

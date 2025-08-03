@@ -31,25 +31,25 @@ const ClientReviews = () => {
     <section className="py-16 bg-gradient-card">
       <div className="container mx-auto px-4">
         <div className="text-center mb-12">
-          <h2 className="text-4xl font-bold mb-4">What Our Clients Say</h2>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+          <h2 className="text-3xl sm:text-4xl font-bold mb-4">What Our Clients Say</h2>
+          <p className="text-lg sm:text-xl text-muted-foreground max-w-2xl mx-auto">
             Hear from satisfied customers who found their perfect land investments through us
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
           {reviews.map((review, index) => (
-            <Card key={index} className="shadow-hover hover:shadow-lg transition-shadow duration-300">
-              <CardContent className="p-6">
-                <Quote className="h-8 w-8 text-success mb-4" />
+            <Card key={index} className="shadow-hover hover:shadow-lg transition-shadow duration-300 border-0">
+              <CardContent className="p-4 sm:p-6">
+                <Quote className="h-6 w-6 sm:h-8 sm:w-8 text-success mb-4" />
                 
-                <div className="flex items-center gap-1 mb-4">
+                <div className="flex items-center gap-1 mb-4 star-rating">
                   {[...Array(review.rating)].map((_, i) => (
-                    <Star key={i} className="h-4 w-4 fill-yellow-400 text-yellow-400" />
+                    <Star key={i} className="h-4 w-4 fill-green-500 text-green-500" />
                   ))}
                 </div>
 
-                <p className="text-muted-foreground mb-6 italic">
+                <p className="text-muted-foreground mb-4 sm:mb-6 italic text-sm sm:text-base leading-relaxed">
                   "{review.review}"
                 </p>
 
@@ -57,11 +57,11 @@ const ClientReviews = () => {
                   <img 
                     src={review.avatar} 
                     alt={review.name}
-                    className="w-12 h-12 rounded-full object-cover"
+                    className="w-10 h-10 sm:w-12 sm:h-12 rounded-full object-cover"
                   />
                   <div>
-                    <div className="font-semibold">{review.name}</div>
-                    <div className="text-sm text-muted-foreground">{review.location}</div>
+                    <div className="font-semibold text-sm sm:text-base">{review.name}</div>
+                    <div className="text-xs sm:text-sm text-muted-foreground">{review.location}</div>
                   </div>
                 </div>
               </CardContent>
