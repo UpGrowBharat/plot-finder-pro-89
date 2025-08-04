@@ -23,36 +23,36 @@ const Header = () => {
   ];
 
   return (
-    <header className="bg-white backdrop-blur-sm border-b-2 border-gray-200 sticky top-0 z-50 shadow-lg mobile-optimized">
-      <div className="max-w-6xl mx-auto px-6 lg:px-8 py-4">
-        <div className="flex items-center justify-between">
+    <header className="bg-white backdrop-blur-sm border-b-2 border-gray-200 sticky top-0 z-50 shadow-lg full-width-container">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-4 mobile-optimized">
+        <div className="flex items-center justify-between mobile-optimized">
           {/* Logo */}
-          <div className="flex items-center">
-            <Link to="/" className="hover:opacity-80 transition-opacity">
+          <div className="flex items-center mobile-optimized">
+            <Link to="/" className="hover:opacity-80 transition-opacity mobile-optimized">
               <img 
                 src="/lovable-uploads/4526009d-665d-4c09-9366-2ce5b14b12e7.png" 
                 alt="90acre.com" 
-                className="h-16 sm:h-20 w-auto" 
+                className="h-12 sm:h-16 lg:h-20 w-auto mobile-optimized" 
               />
             </Link>
           </div>
 
           {/* Desktop Navigation */}
-          <nav className="hidden lg:flex items-center space-x-8">
+          <nav className="hidden lg:flex items-center space-x-8 mobile-optimized">
             {mainNavItems.map((item) => (
               <Link
                 key={item.name}
                 to={item.href}
-                className="text-gray-800 hover:text-green-600 transition-colors duration-300 font-semibold text-base mobile-optimized"
+                className="text-gray-800 hover:text-primary transition-colors duration-300 font-semibold text-base mobile-optimized"
               >
                 {item.name}
               </Link>
             ))}
             
             {/* Policies Dropdown */}
-            <div className="relative group">
+            <div className="relative group mobile-optimized">
               <button
-                className="text-gray-800 hover:text-green-600 transition-colors duration-300 font-semibold text-base flex items-center gap-1 mobile-optimized"
+                className="text-gray-800 hover:text-primary transition-colors duration-300 font-semibold text-base flex items-center gap-1 mobile-optimized"
                 onMouseEnter={() => setIsPolicyMenuOpen(true)}
                 onMouseLeave={() => setIsPolicyMenuOpen(false)}
               >
@@ -70,7 +70,7 @@ const Header = () => {
                     <Link
                       key={item.name}
                       to={item.href}
-                      className="block px-4 py-3 text-sm text-gray-800 hover:text-green-600 hover:bg-green-50 mobile-optimized"
+                      className="block px-4 py-3 text-sm text-gray-800 hover:text-primary hover:bg-primary/5 mobile-optimized"
                     >
                       {item.name}
                     </Link>
@@ -81,9 +81,9 @@ const Header = () => {
           </nav>
 
           {/* CTA Button */}
-          <div className="hidden md:flex">
+          <div className="hidden md:flex mobile-optimized">
             <Link to="/list-property">
-              <Button className="bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-xl font-semibold transition-all duration-300 hover:shadow-lg mobile-optimized">
+              <Button className="bg-primary hover:bg-primary/90 text-primary-foreground px-6 py-3 rounded-xl font-semibold transition-all duration-300 hover:shadow-lg mobile-optimized">
                 List Property
               </Button>
             </Link>
@@ -93,7 +93,7 @@ const Header = () => {
           <Button
             variant="ghost"
             size="sm"
-            className="lg:hidden text-gray-800 hover:text-green-600 mobile-optimized"
+            className="lg:hidden text-gray-800 hover:text-primary mobile-optimized"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
           >
             {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
@@ -107,20 +107,20 @@ const Header = () => {
               <Link
                 key={item.name}
                 to={item.href}
-                className="block text-gray-800 hover:text-green-600 transition-colors duration-300 font-semibold py-3 mobile-optimized"
+                className="block text-gray-800 hover:text-primary transition-colors duration-300 font-semibold py-3 mobile-optimized"
                 onClick={() => setIsMenuOpen(false)}
               >
                 {item.name}
               </Link>
             ))}
             
-            <div className="border-t-2 border-gray-200 pt-4">
+            <div className="border-t-2 border-gray-200 pt-4 mobile-optimized">
               <p className="text-sm font-semibold text-gray-700 mb-3 mobile-optimized">Policies</p>
               {policyItems.map((item) => (
                 <Link
                   key={item.name}
                   to={item.href}
-                  className="block text-gray-700 hover:text-green-600 transition-colors duration-300 py-2 pl-4 mobile-optimized"
+                  className="block text-gray-700 hover:text-primary transition-colors duration-300 py-2 pl-4 mobile-optimized"
                   onClick={() => setIsMenuOpen(false)}
                 >
                   {item.name}
@@ -128,9 +128,9 @@ const Header = () => {
               ))}
             </div>
             
-            <div className="pt-4">
+            <div className="pt-4 mobile-optimized">
               <Link to="/list-property">
-                <Button className="bg-green-600 hover:bg-green-700 text-white w-full rounded-xl font-semibold py-3 mobile-optimized">
+                <Button className="bg-primary hover:bg-primary/90 text-primary-foreground w-full rounded-xl font-semibold py-3 mobile-optimized">
                   List Property
                 </Button>
               </Link>
