@@ -1,10 +1,11 @@
+
 import { useState, useEffect } from 'react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { MapPin, Maximize, Phone, MessageCircle, Star, Filter, Search } from 'lucide-react';
+import { MapPin, Maximize, Phone, MessageCircle, Star, Filter, Search, ExternalLink } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { getConvertedMeasurement } from '@/utils/unitConverter';
 import AnimatedBackground3D from '@/components/AnimatedBackground3D';
@@ -17,111 +18,40 @@ const Properties = () => {
   const [searchTerm, setSearchTerm] = useState('');
 
   useEffect(() => {
-    // Enhanced default properties with complete details
+    // Updated properties with new A-1 data
     const defaultProperties = [
       {
         id: '1',
         serialNumber: 'A-1',
-        title: 'Premium Residential Plot in Gurgaon',
-        images: ['https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800&h=600'],
-        price: '₹25,00,000',
-        originalPrice: '₹28,00,000',
-        priceNumeric: 2500000,
-        city: 'Gurgaon',
-        area: 'Sector 89',
-        state: 'Haryana',
-        size: '100',
-        unit: 'gaj',
+        title: 'Premium Land Plot - 120 Bigha',
+        images: [
+          '/lovable-uploads/4dc0b007-41bd-4063-bbd1-d5fdfa4307aa.png',
+          '/lovable-uploads/a7cb60ba-b410-491f-979f-4f8dfed44d36.png'
+        ],
+        price: '₹5,000/- per yard',
+        priceNumeric: 5000,
+        city: 'Bharat Petroleum Area',
+        area: 'BB Singh Petrol Pump',
+        state: 'India',
+        size: '120',
+        unit: 'bigha',
+        frontFeet: '500',
         type: 'residential',
         ownerName: 'Gaurav Aggarwal',
         phone: '+91 9911288282',
         whatsapp: '+91 9911288282',
         email: 'contact@90acre.com',
-        description: 'Prime residential plot in rapidly developing sector with excellent connectivity to major business hubs, educational institutions, and healthcare facilities.',
-        rating: 4.8,
-        reviews: 156,
-        features: ['DTCP Approved', 'Clear Title', 'Ready for Construction', 'Metro Nearby'],
-        status: 'approved'
-      },
-      {
-        id: '2',
-        serialNumber: 'A-2',
-        title: 'Commercial Plot in Noida Extension',
-        images: ['https://images.unsplash.com/photo-1582407947304-fd86f028f716?w=800&h=600'],
-        price: '₹45,00,000',
-        originalPrice: '₹50,00,000',
-        priceNumeric: 4500000,
-        city: 'Noida',
-        area: 'Sector 150',
-        state: 'Uttar Pradesh',
-        size: '200',
-        unit: 'gaj',
-        type: 'commercial',
-        ownerName: 'Gaurav Aggarwal',
-        phone: '+91 9911288282',
-        whatsapp: '+91 9911288282',
-        email: 'contact@90acre.com',
-        description: 'Excellent commercial plot with high appreciation potential, metro connectivity and surrounded by premium developments.',
-        rating: 4.6,
-        reviews: 89,
-        features: ['Commercial License', 'Main Road Facing', 'High Footfall', 'Metro Connected'],
-        status: 'approved'
-      },
-      {
-        id: '3',
-        serialNumber: 'A-3',
-        title: 'Industrial Plot in Faridabad',
-        images: ['https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=800&h=600'],
-        price: '₹80,00,000',
-        originalPrice: '₹85,00,000',
-        priceNumeric: 8000000,
-        city: 'Faridabad',
-        area: 'Sector 18',
-        state: 'Haryana',
-        size: '500',
-        unit: 'gaj',
-        type: 'industrial',
-        ownerName: 'Gaurav Aggarwal',
-        phone: '+91 9911288282',
-        whatsapp: '+91 9911288282',
-        email: 'contact@90acre.com',
-        description: 'Large industrial plot with power backup, logistics connectivity perfect for manufacturing or warehouse setup.',
-        rating: 4.7,
-        reviews: 67,
-        features: ['Industrial License', 'Power Backup', 'Loading Bay', 'Security'],
-        status: 'approved'
-      },
-      {
-        id: '4',
-        serialNumber: 'A-4',
-        title: 'Residential Plot in Jaipur',
-        images: ['https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=800&h=600'],
-        price: '₹35,00,000',
-        priceNumeric: 3500000,
-        city: 'Jaipur',
-        area: 'Malviya Nagar',
-        state: 'Rajasthan',
-        size: '150',
-        unit: 'gaj',
-        type: 'residential',
-        ownerName: 'Gaurav Aggarwal',
-        phone: '+91 9911288282',
-        whatsapp: '+91 9911288282',
-        email: 'contact@90acre.com',
-        description: 'Well-located residential plot in established area with excellent social infrastructure and connectivity.',
-        rating: 4.5,
-        reviews: 134,
-        features: ['Established Area', 'Good Connectivity', 'Schools Nearby', 'Clear Title'],
-        status: 'approved'
+        description: 'Premium land plot with excellent connectivity and clear documentation. Located near Bharat Petroleum with 500 feet front facing.',
+        rating: 4.9,
+        reviews: 245,
+        features: ['120 Bigha Area', '500 Feet Front', 'Clear Title', 'Prime Location', 'Road Connectivity'],
+        status: 'approved',
+        googleMapsUrl: 'https://goo.gl/maps/iT5YEiJZW9Zg2Lwt5?g_st=awb'
       }
     ];
 
-    // Load properties from localStorage and merge with defaults
-    const storedProperties = JSON.parse(localStorage.getItem('properties') || '[]');
-    const allProperties = [...defaultProperties, ...storedProperties.filter((p: any) => p.status === 'approved')];
-    
-    setProperties(allProperties);
-    setFilteredProperties(allProperties);
+    setProperties(defaultProperties);
+    setFilteredProperties(defaultProperties);
   }, []);
 
   useEffect(() => {
@@ -161,13 +91,21 @@ const Properties = () => {
     setFilteredProperties(filtered);
   }, [properties, filterType, sortBy, searchTerm]);
 
-  const getMeasurementDisplay = (size: string, unit: string) => {
+  const getMeasurementDisplay = (size: string, unit: string, frontFeet?: string) => {
+    if (unit === 'bigha') {
+      return `${size} Bigha${frontFeet ? ` • ${frontFeet} Feet Front` : ''}`;
+    }
     const converted = getConvertedMeasurement(size, unit);
-    return `${converted.original.display} (${converted.converted.display})`;
+    return `${converted.original.display} (${converted.converted.display})${frontFeet ? ` • ${frontFeet} Feet Front` : ''}`;
   };
   
   const openWhatsApp = (phone: string) => {
-    window.open(`https://wa.me/${phone.replace(/[^0-9]/g, '')}`, '_blank');
+    const message = encodeURIComponent('Hi, I am interested in this A-1 property (120 Bigha). Can you provide more details?');
+    window.open(`https://wa.me/${phone.replace(/[^0-9]/g, '')}?text=${message}`, '_blank');
+  };
+
+  const openGoogleMaps = (url: string) => {
+    window.open(url, '_blank');
   };
 
   const getPlotTypeLabel = (type: string) => {
@@ -291,23 +229,25 @@ const Properties = () => {
                   >
                     <div className="relative">
                       <img 
-                        src={property.images?.[0] || 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800&h=600'} 
+                        src={property.images?.[0] || '/lovable-uploads/4dc0b007-41bd-4063-bbd1-d5fdfa4307aa.png'} 
                         alt={`Property ${property.serialNumber}`}
                         className="w-full h-64 object-cover"
                       />
                       <Badge className="absolute top-4 left-4 bg-green-600 text-white text-lg font-bold shadow-lg">
                         {property.serialNumber}
                       </Badge>
-                      <Badge className="absolute top-4 left-20 bg-orange-500 text-white font-bold animate-pulse">
-                        DEMO
-                      </Badge>
                       <Badge className={`absolute top-4 right-4 ${getTypeColor(property.type)} text-white shadow-lg`}>
                         {getPlotTypeLabel(property.type)}
                       </Badge>
-                      {property.originalPrice && (
-                        <Badge className="absolute bottom-4 left-4 bg-red-500 text-white">
-                          Save {(parseInt(property.originalPrice.replace(/[^\d]/g, '')) - parseInt(property.price.replace(/[^\d]/g, ''))).toLocaleString('en-IN')}
-                        </Badge>
+                      {property.googleMapsUrl && (
+                        <Button
+                          size="sm"
+                          className="absolute bottom-4 right-4 bg-blue-600 hover:bg-blue-700"
+                          onClick={() => openGoogleMaps(property.googleMapsUrl)}
+                        >
+                          <ExternalLink className="h-3 w-3 mr-1" />
+                          Map
+                        </Button>
                       )}
                     </div>
                     
@@ -316,9 +256,6 @@ const Properties = () => {
                         <div>
                           <div className="flex items-center gap-2 mb-2">
                             <h3 className="text-2xl font-bold text-gray-900">{property.price}</h3>
-                            {property.originalPrice && (
-                              <span className="text-sm text-gray-500 line-through">{property.originalPrice}</span>
-                            )}
                           </div>
                           {property.rating && (
                             <div className="flex items-center gap-1">
@@ -333,22 +270,24 @@ const Properties = () => {
                         </Badge>
                       </div>
                       
+                      <h4 className="text-lg font-semibold text-gray-900 mb-3">{property.title}</h4>
+                      
                       <div className="space-y-3 mb-4">
                         <div className="flex items-center gap-2 text-gray-600">
                           <MapPin className="h-4 w-4" />
-                          <span className="text-sm">{property.area}, {property.city}, {property.state}</span>
+                          <span className="text-sm">{property.area}, {property.city}</span>
                         </div>
                         
                         <div className="flex items-center gap-2 text-gray-600">
                           <Maximize className="h-4 w-4" />
                           <span className="text-sm">
-                            {getMeasurementDisplay(property.size, property.unit)}
+                            {getMeasurementDisplay(property.size, property.unit, property.frontFeet)}
                           </span>
                         </div>
                       </div>
 
                       <p className="text-sm text-gray-600 mb-4 line-clamp-2">
-                        {property.description || property.title}
+                        {property.description}
                       </p>
 
                       {/* Property Features */}

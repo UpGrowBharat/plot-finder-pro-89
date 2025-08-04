@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { MapPin, Maximize, Phone, MessageCircle, Star } from 'lucide-react';
+import { MapPin, Maximize, Phone, MessageCircle, Star, ExternalLink } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { getConvertedMeasurement } from '@/utils/unitConverter';
 import FloatingCube3D from './FloatingCube3D';
@@ -24,6 +24,8 @@ interface Property {
   type: string;
   description: string;
   features: string[] | null;
+  front_feet?: string;
+  google_maps_url?: string;
 }
 
 const PropertySlider = () => {
@@ -45,12 +47,10 @@ const PropertySlider = () => {
 
       if (error) {
         console.error('Error fetching properties:', error);
-        // Fallback to demo data if no properties found
         setProperties(fallbackProperties);
       } else if (data && data.length > 0) {
         setProperties(data);
       } else {
-        // Use fallback data if no approved properties
         setProperties(fallbackProperties);
       }
     } catch (error) {
@@ -61,52 +61,27 @@ const PropertySlider = () => {
     }
   };
 
-  // Fallback demo data
+  // Updated property data with your specifications
   const fallbackProperties: Property[] = [
     {
       id: '1',
       serial_number: 'A-1',
-      title: 'Premium Residential Plot in Gurgaon',
-      images: ['https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800&h=600'],
-      price_text: '₹25,00,000',
-      city: 'Gurgaon',
-      area: 'Sector 89',
-      state: 'Haryana',
-      size: '100',
-      unit: 'gaj',
+      title: 'Premium Land Plot - 120 Bigha',
+      images: [
+        '/lovable-uploads/4dc0b007-41bd-4063-bbd1-d5fdfa4307aa.png',
+        '/lovable-uploads/a7cb60ba-b410-491f-979f-4f8dfed44d36.png'
+      ],
+      price_text: '₹5,000/- per yard',
+      city: 'Bharat Petroleum Area',
+      area: 'BB Singh Petrol Pump',
+      state: 'India',
+      size: '120',
+      unit: 'bigha',
+      front_feet: '500',
       type: 'residential',
-      description: 'Prime residential plot in rapidly developing sector with excellent connectivity.',
-      features: ['DTCP Approved', 'Clear Title', 'Ready for Construction', 'Metro Nearby']
-    },
-    {
-      id: '2',
-      serial_number: 'A-2',
-      title: 'Commercial Plot in Noida Extension',
-      images: ['https://images.unsplash.com/photo-1582407947304-fd86f028f716?w=800&h=600'],
-      price_text: '₹45,00,000',
-      city: 'Noida',
-      area: 'Sector 150',
-      state: 'Uttar Pradesh',
-      size: '200',
-      unit: 'gaj',
-      type: 'commercial',
-      description: 'Excellent commercial plot with high appreciation potential and metro connectivity.',
-      features: ['Commercial License', 'Main Road Facing', 'High Footfall', 'Metro Connected']
-    },
-    {
-      id: '3',
-      serial_number: 'A-3',
-      title: 'Industrial Plot in Faridabad',
-      images: ['https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=800&h=600'],
-      price_text: '₹80,00,000',
-      city: 'Faridabad',
-      area: 'Sector 18',
-      state: 'Haryana',
-      size: '500',
-      unit: 'gaj',
-      type: 'industrial',
-      description: 'Large industrial plot with power backup and logistics connectivity.',
-      features: ['Industrial License', 'Power Backup', 'Loading Bay', 'Security']
+      description: 'Premium land plot with excellent connectivity and clear documentation. Located near Bharat Petroleum with 500 feet front facing.',
+      features: ['120 Bigha Area', '500 Feet Front', 'Clear Title', 'Prime Location', 'Road Connectivity'],
+      google_maps_url: 'https://goo.gl/maps/iT5YEiJZW9Zg2Lwt5?g_st=awb'
     }
   ];
 
@@ -118,18 +93,27 @@ const PropertySlider = () => {
     setCurrentIndex((prev) => (prev - 1 + properties.length) % properties.length);
   };
 
-  const getMeasurementDisplay = (size: string, unit: string) => {
+  const getMeasurementDisplay = (size: string, unit: string, frontFeet?: string) => {
+    if (unit === 'bigha') {
+      return `${size} Bigha${frontFeet ? ` • ${frontFeet} Feet Front` : ''}`;
+    }
     const converted = getConvertedMeasurement(size, unit);
-    return `${converted.original.display} (${converted.converted.display})`;
+    return `${converted.original.display} (${converted.converted.display})${frontFeet ? ` • ${frontFeet} Feet Front` : ''}`;
   };
 
   const openWhatsApp = () => {
-    const message = encodeURIComponent('Hi, I am interested in this property. Can you provide more details?');
+    const message = encodeURIComponent('Hi, I am interested in this A-1 property (120 Bigha). Can you provide more details?');
     window.open(`https://wa.me/9911288282?text=${message}`, '_blank');
   };
 
   const callNow = () => {
     window.open(`tel:+9911288282`, '_self');
+  };
+
+  const openGoogleMaps = (url?: string) => {
+    if (url) {
+      window.open(url, '_blank');
+    }
   };
 
   if (loading) {
@@ -174,7 +158,7 @@ const PropertySlider = () => {
                       {/* Image Section */}
                       <div className="relative">
                         <img 
-                          src={property.images?.[0] || 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800&h=600'} 
+                          src={property.images?.[0] || '/lovable-uploads/4dc0b007-41bd-4063-bbd1-d5fdfa4307aa.png'} 
                           alt={property.title}
                           className="w-full h-80 lg:h-full object-cover"
                         />
@@ -184,6 +168,16 @@ const PropertySlider = () => {
                         <Badge className="absolute top-4 right-4 bg-green-500 text-white font-bold">
                           VERIFIED
                         </Badge>
+                        {property.google_maps_url && (
+                          <Button
+                            size="sm"
+                            className="absolute bottom-4 right-4 bg-blue-600 hover:bg-blue-700"
+                            onClick={() => openGoogleMaps(property.google_maps_url)}
+                          >
+                            <ExternalLink className="h-3 w-3 mr-1" />
+                            Map View
+                          </Button>
+                        )}
                       </div>
                       
                       {/* Content Section */}
@@ -195,8 +189,8 @@ const PropertySlider = () => {
                             </div>
                             <div className="flex items-center gap-1">
                               <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
-                              <span className="text-sm font-medium">4.8</span>
-                              <span className="text-xs text-muted-foreground">(125 reviews)</span>
+                              <span className="text-sm font-medium">4.9</span>
+                              <span className="text-xs text-muted-foreground">(Premium Location)</span>
                             </div>
                           </div>
                           <Badge variant="outline" className="bg-primary/10 text-primary border-primary/20">
@@ -209,13 +203,13 @@ const PropertySlider = () => {
                         <div className="space-y-3 mb-4">
                           <div className="flex items-center gap-2 text-muted-foreground">
                             <MapPin className="h-4 w-4" />
-                            <span className="text-sm">{property.area}, {property.city}, {property.state}</span>
+                            <span className="text-sm">{property.area}, {property.city}</span>
                           </div>
                           
                           <div className="flex items-center gap-2 text-muted-foreground">
                             <Maximize className="h-4 w-4" />
                             <span className="text-sm">
-                              {getMeasurementDisplay(property.size, property.unit)}
+                              {getMeasurementDisplay(property.size, property.unit, property.front_feet)}
                             </span>
                           </div>
                         </div>
@@ -294,36 +288,42 @@ const PropertySlider = () => {
             </div>
           </div>
 
-          {/* Navigation Buttons */}
-          <Button
-            variant="outline"
-            size="icon"
-            className="absolute left-4 top-1/2 -translate-y-1/2 rounded-full bg-white/90 backdrop-blur-sm"
-            onClick={prevSlide}
-          >
-            ←
-          </Button>
-          <Button
-            variant="outline"
-            size="icon"
-            className="absolute right-4 top-1/2 -translate-y-1/2 rounded-full bg-white/90 backdrop-blur-sm"
-            onClick={nextSlide}
-          >
-            →
-          </Button>
+          {/* Navigation Buttons - Only show if multiple properties */}
+          {properties.length > 1 && (
+            <>
+              <Button
+                variant="outline"
+                size="icon"
+                className="absolute left-4 top-1/2 -translate-y-1/2 rounded-full bg-white/90 backdrop-blur-sm"
+                onClick={prevSlide}
+              >
+                ←
+              </Button>
+              <Button
+                variant="outline"
+                size="icon"
+                className="absolute right-4 top-1/2 -translate-y-1/2 rounded-full bg-white/90 backdrop-blur-sm"
+                onClick={nextSlide}
+              >
+                →
+              </Button>
+            </>
+          )}
 
-          {/* Dots Navigation */}
-          <div className="flex justify-center mt-6 space-x-2">
-            {properties.map((_, index) => (
-              <button
-                key={index}
-                className={`w-3 h-3 rounded-full transition-colors ${
-                  index === currentIndex ? 'bg-primary' : 'bg-muted'
-                }`}
-                onClick={() => setCurrentIndex(index)}
-              />
-            ))}
-          </div>
+          {/* Dots Navigation - Only show if multiple properties */}
+          {properties.length > 1 && (
+            <div className="flex justify-center mt-6 space-x-2">
+              {properties.map((_, index) => (
+                <button
+                  key={index}
+                  className={`w-3 h-3 rounded-full transition-colors ${
+                    index === currentIndex ? 'bg-primary' : 'bg-muted'
+                  }`}
+                  onClick={() => setCurrentIndex(index)}
+                />
+              ))}
+            </div>
+          )}
         </div>
       </div>
     </section>
