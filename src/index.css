@@ -51,7 +51,6 @@
   html {
     scroll-behavior: smooth;
     width: 100%;
-    overflow-x: auto;
   }
 
   body {
@@ -59,8 +58,8 @@
     font-family: 'Inter', system-ui, -apple-system, sans-serif;
     font-feature-settings: 'cv11', 'ss01';
     font-variation-settings: 'opsz' 32;
-    min-width: 100%;
     width: 100%;
+    min-height: 100vh;
   }
   
   h1, h2, h3, h4, h5, h6 {
@@ -77,9 +76,9 @@
 
 @layer components {
   .container {
-    @apply mx-auto px-4;
+    @apply mx-auto px-4 sm:px-6 lg:px-8;
     width: 100%;
-    max-width: 100%;
+    max-width: 1400px;
   }
   
   .modern-card {
@@ -101,7 +100,7 @@
   }
   
   .enhanced-button {
-    @apply bg-primary text-primary-foreground font-semibold px-6 py-3 rounded-lg transition-all duration-300 hover:bg-primary/90 hover:shadow-lg hover:-translate-y-0.5;
+    @apply bg-primary text-primary-foreground font-semibold px-8 py-4 rounded-lg transition-all duration-300 hover:bg-primary/90 hover:shadow-lg hover:scale-105;
     background: hsl(var(--primary));
     color: hsl(var(--primary-foreground));
   }
@@ -112,11 +111,12 @@
   }
   
   .search-input {
-    @apply h-12 bg-card border-2 border-border focus:border-primary focus:ring-primary/20 rounded-lg text-foreground;
+    @apply h-14 bg-card border-2 border-border focus:border-primary focus:ring-primary/20 rounded-lg text-foreground px-4;
     background: hsl(var(--card));
     color: hsl(var(--foreground));
     border-color: hsl(var(--border));
     width: 100%;
+    font-size: 16px;
   }
   
   .search-input:focus {
@@ -124,21 +124,34 @@
     box-shadow: 0 0 0 3px hsl(var(--primary) / 0.1);
   }
 
-  .mobile-optimized {
-    width: 100%;
-    min-width: 0;
+  /* Professional Header Styles */
+  .professional-nav {
+    @apply flex items-center space-x-8;
   }
 
-  .full-width-container {
-    width: 100vw;
-    max-width: 100vw;
-    margin-left: calc(-50vw + 50%);
-    padding-left: 1rem;
-    padding-right: 1rem;
+  .professional-nav a {
+    @apply text-gray-800 hover:text-primary transition-all duration-300 font-semibold text-lg px-4 py-2 rounded-lg hover:bg-gray-50;
+  }
+
+  .professional-dropdown {
+    @apply absolute top-full left-0 mt-2 w-64 bg-white rounded-xl shadow-2xl border border-gray-200 py-3 z-50;
+  }
+
+  .professional-dropdown a {
+    @apply block px-6 py-3 text-base text-gray-700 hover:text-primary hover:bg-primary/5 transition-all duration-200 font-medium;
+  }
+
+  /* Mobile Professional Styles */
+  .mobile-nav-item {
+    @apply block text-gray-800 hover:text-primary transition-colors duration-300 font-semibold text-lg py-4 px-4 rounded-xl hover:bg-gray-50;
+  }
+
+  .mobile-sub-item {
+    @apply block text-gray-600 hover:text-primary transition-colors duration-300 font-medium text-base py-3 px-6 rounded-lg hover:bg-gray-50;
   }
 }
 
-/* Enhanced animations */
+/* Professional animations */
 @keyframes float {
   0%, 100% { transform: translateY(0px); }
   50% { transform: translateY(-10px); }
@@ -166,6 +179,17 @@
   }
 }
 
+@keyframes scale-in {
+  from { 
+    opacity: 0; 
+    transform: scale(0.95); 
+  }
+  to { 
+    opacity: 1; 
+    transform: scale(1); 
+  }
+}
+
 .animate-float {
   animation: float 6s ease-in-out infinite;
 }
@@ -178,29 +202,40 @@
   animation: slide-up 0.8s ease-out;
 }
 
-/* Professional responsive design maintaining desktop feel */
+.animate-scale-in {
+  animation: scale-in 0.4s ease-out;
+}
+
+/* Professional responsive design */
+@media (max-width: 1024px) {
+  .container {
+    @apply px-4 sm:px-6;
+  }
+  
+  .professional-nav {
+    @apply space-x-6;
+  }
+  
+  .professional-nav a {
+    @apply text-base px-3 py-2;
+  }
+}
+
 @media (max-width: 768px) {
   .container {
     @apply px-4;
-    width: 100%;
-    max-width: 100%;
-  }
-  
-  .mobile-optimized {
-    width: 100%;
-    min-width: 0;
-    font-size: inherit;
   }
   
   .enhanced-button {
     width: 100%;
-    padding: 12px 24px;
-    font-size: 16px;
+    padding: 16px 24px;
+    font-size: 18px;
   }
 
   .search-input {
     width: 100%;
     font-size: 16px;
+    height: 56px;
   }
   
   h1 {
@@ -214,23 +249,44 @@
   }
   
   h3 {
-    font-size: 1.5rem;
+    font-size: 1.75rem;
     line-height: 1.4;
   }
   
   p {
-    font-size: 1rem;
-    line-height: 1.6;
+    font-size: 1.1rem;
+    line-height: 1.7;
   }
 }
 
 @media (max-width: 480px) {
-  .full-width-container {
-    padding-left: 0.5rem;
-    padding-right: 0.5rem;
+  .container {
+    @apply px-3;
   }
   
-  .container {
-    @apply px-2;
+  .mobile-nav-item {
+    @apply py-3 px-3 text-base;
   }
+  
+  .mobile-sub-item {
+    @apply py-2 px-4 text-sm;
+  }
+}
+
+/* Professional button hover effects */
+.professional-button {
+  @apply bg-primary hover:bg-primary/90 text-white font-bold px-8 py-4 rounded-xl transition-all duration-300 hover:shadow-xl hover:scale-105 border-2 border-primary;
+}
+
+.professional-button:hover {
+  box-shadow: 0 15px 35px hsl(var(--primary) / 0.3);
+}
+
+/* Logo professional styling */
+.professional-logo {
+  @apply hover:opacity-80 transition-opacity duration-300;
+}
+
+.professional-logo img {
+  @apply object-contain filter drop-shadow-md;
 }
